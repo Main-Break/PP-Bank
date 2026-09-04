@@ -1,28 +1,28 @@
 package com.ppbank;
 
-import com.ppbank.modelo.ContaCorrente;
-import com.ppbank.modelo.ContaPoupanca;
-import com.ppbank.repositorio.RepositorioConta;
-import com.ppbank.repositorio.RepositorioContaEmMemoria;
-import com.ppbank.servico.ServicoConta;
+import com.ppbank.model.CheckingAccount;
+import com.ppbank.model.SavingsAccount;
+import com.ppbank.repository.AccountRepository;
+import com.ppbank.repository.InMemoryAccountRepository;
+import com.ppbank.service.AccountService;
 
 public class Main {
 
     public static void main(String[] args) {
-        RepositorioConta repositorio = new RepositorioContaEmMemoria();
-        ServicoConta servicoConta = new ServicoConta(repositorio);
+        AccountRepository repository = new InMemoryAccountRepository();
+        AccountService accountService = new AccountService(repository);
 
-        servicoConta.abrirConta("001", "Kainan H.", new ContaCorrente());
-        servicoConta.abrirConta("002", "Maria Silva", new ContaPoupanca());
+        accountService.openAccount("001", "Kainan H.", new CheckingAccount());
+        accountService.openAccount("002", "Maria Silva", new SavingsAccount());
 
-        servicoConta.depositar("001", 1000.0);
-        servicoConta.depositar("002", 500.0);
+        accountService.deposit("001", 1000.0);
+        accountService.deposit("002", 500.0);
 
-        servicoConta.transferir("001", "002", 200.0);
+        accountService.transfer("001", "002", 200.0);
 
-        servicoConta.sacar("002", 100.0);
+        accountService.withdraw("002", 100.0);
 
-        System.out.printf("Conta 001 - saldo: R$ %.2f%n", servicoConta.consultarSaldo("001"));
-        System.out.printf("Conta 002 - saldo: R$ %.2f%n", servicoConta.consultarSaldo("002"));
+        System.out.printf("Account 001 - balance: %.2f%n", accountService.getBalance("001"));
+        System.out.printf("Account 002 - balance: %.2f%n", accountService.getBalance("002"));
     }
 }
