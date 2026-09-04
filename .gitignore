@@ -26,6 +26,9 @@ replay_pid*
 # Maven
 target/
 
+# Build manual (javac)
+out/
+
 # IDEs
 .idea/
 *.iml

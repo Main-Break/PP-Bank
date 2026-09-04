@@ -8,8 +8,13 @@ Projeto de banco para a disciplina de Padrões de Projeto
 
 ## Como rodar
 
+Pela IDE: abra `Main.java` e clique no ícone de play ao lado do método `main`.
+
+Pelo terminal, sem Maven:
+
 ```
-mvn compile exec:java
+javac -d out -encoding UTF-8 $(find src/main/java -name "*.java")
+java -cp out com.ppbank.Main
 ```
 
 ## Como testar
