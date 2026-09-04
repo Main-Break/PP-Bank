@@ -9,7 +9,7 @@ Projeto de banco para a disciplina de Padrões de Projeto
 ## Como rodar
 
 ```
-mvn compile exec:java -Dexec.mainClass="com.ppbank.Main"
+mvn compile exec:java
 ```
 
 ## Como testar
