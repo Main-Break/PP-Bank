@@ -4,7 +4,6 @@ import com.ppbank.exception.AccountNotFoundException;
 import com.ppbank.exception.InsufficientBalanceException;
 import com.ppbank.model.CheckingAccount;
 import com.ppbank.model.SavingsAccount;
-import com.ppbank.repository.AccountRepository;
 import com.ppbank.repository.InMemoryAccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
