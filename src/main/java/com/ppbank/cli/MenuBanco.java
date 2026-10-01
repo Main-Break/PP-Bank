@@ -1,8 +1,12 @@
 package com.ppbank.cli;
 
+import com.ppbank.controller.Banco;
+
 import java.util.Scanner;
 
 public class MenuBanco extends MenuBase {
+
+    private final Scanner leitor_menu = new Scanner(System.in);
 
     @Override
     public void exibir() {
@@ -39,7 +43,27 @@ public class MenuBanco extends MenuBase {
     }
 
     void criarFilial() {
-        this.funcaoNaoImplementada();
+        Banco banco = new Banco();
+
+        System.out.print("Informe o nome do banco: ");
+        String nome = this.leitor_menu.nextLine();
+
+        System.out.print("Informe o codigo da agencia: ");
+        String codigo = this.leitor_menu.nextLine();
+
+        System.out.print("Informe o CNPJ da agenda: ");
+        String cnpj = this.leitor_menu.nextLine();
+
+        System.out.print("Informe o endereco: ");
+        String endereco = this.leitor_menu.nextLine();
+
+        banco.criar(
+                nome=nome,
+                codigo=codigo,
+                cnpj=cnpj,
+                endereco=endereco
+        );
+
     }
 
     void colaboradores() {
