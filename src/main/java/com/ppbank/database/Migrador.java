@@ -9,17 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Responsável só por manter o schema do banco atualizado (SRP) - a conexão em si é
- * responsabilidade da classe Database. Depende apenas da abstração java.sql.Connection (DIP),
- * então não precisa conhecer a classe Database para funcionar.
- *
- * O schema completo e atual fica consolidado em src/main/resources/database.sql. A cada
- * inicialização da aplicação, este método confere a versão instalada na tabela schema_version
- * e, se estiver desatualizada, aplica o arquivo de novo (os comandos usam CREATE TABLE IF NOT
- * EXISTS, então reaplicar é seguro). Assim ninguém precisa lembrar de rodar nada manualmente
- * no servidor.
- */
 public class Migrador {
 
     private static final String ARQUIVO_SCHEMA = "/database.sql";

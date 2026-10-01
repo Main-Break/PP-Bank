@@ -6,8 +6,6 @@ import java.sql.SQLException;
 
 /**
  * Singleton: garante uma única conexão com o banco SQLite durante toda a execução da aplicação.
- * Única responsabilidade desta classe é prover essa conexão (SRP) - quem precisa de acesso ao
- * banco depende apenas do tipo java.sql.Connection, não de detalhes de como ela foi aberta (DIP).
  */
 public class Database {
 
