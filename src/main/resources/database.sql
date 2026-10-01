@@ -17,3 +17,13 @@ CREATE TABLE IF NOT EXISTS banco (
     cnpj TEXT NOT NULL UNIQUE,
     endereco TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS colaborador (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    usuario TEXT NOT NULL UNIQUE,
+    senha_hash TEXT NOT NULL,
+    senha_salt TEXT NOT NULL,
+    cpf TEXT NOT NULL UNIQUE,
+    agencia TEXT NOT NULL
+);
