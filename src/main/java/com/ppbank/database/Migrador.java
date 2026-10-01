@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class Migrador {
 
     private static final String ARQUIVO_SCHEMA = "/database.sql";
-    private static final int VERSAO_ATUAL = 1;
+    private static final int VERSAO_ATUAL = 2;
 
     private final Connection conexao;
 

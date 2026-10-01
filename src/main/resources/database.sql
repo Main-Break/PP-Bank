@@ -9,3 +9,11 @@
 CREATE TABLE IF NOT EXISTS schema_version (
     versao INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS banco (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    codigo TEXT NOT NULL,
+    cnpj TEXT NOT NULL UNIQUE,
+    endereco TEXT NOT NULL
+);
