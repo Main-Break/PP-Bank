@@ -29,6 +29,9 @@ target/
 # Build manual (javac)
 out/
 
+# Banco de dados local (gerado ao rodar a aplicação)
+*.db
+
 # IDEs
 .idea/
 *.iml
