@@ -36,10 +36,14 @@ public class Main {
         RepositorioConta repositorioConta = new ContaRepositorioSqlite();
         RepositorioTransferencia repositorioTransferencia = new TransferenciaRepositorioSqlite();
 
+        // Sufixo único por execução: evita colidir com o número de uma conta
+        // de demonstração já persistida em execuções anteriores (conta.numero é UNIQUE).
+        String sufixo = String.valueOf(System.currentTimeMillis());
+
         System.out.println("=== Cenário 1: Transferência via Pix + notificação por WhatsApp ===");
 
-        ContaCorrente contaOrigemPix = new ContaCorrente(0, "0001-1", "Ana Souza", new BigDecimal("1000.00"), new BigDecimal("200.00"));
-        ContaPoupanca contaDestinoPix = new ContaPoupanca(0, "0002-2", "Bruno Lima", new BigDecimal("300.00"), new BigDecimal("0.005"));
+        ContaCorrente contaOrigemPix = new ContaCorrente(0, "PIX-ORI-" + sufixo, "Ana Souza", new BigDecimal("1000.00"), new BigDecimal("200.00"));
+        ContaPoupanca contaDestinoPix = new ContaPoupanca(0, "PIX-DST-" + sufixo, "Bruno Lima", new BigDecimal("300.00"), new BigDecimal("0.005"));
 
         long idOrigemPix = repositorioConta.salvar(contaOrigemPix);
         long idDestinoPix = repositorioConta.salvar(contaDestinoPix);
@@ -52,8 +56,8 @@ public class Main {
         System.out.println();
         System.out.println("=== Cenário 2: Transferência via TED + notificação por e-mail ===");
 
-        ContaCorrente contaOrigemTed = new ContaCorrente(0, "0003-3", "Carla Mendes", new BigDecimal("5000.00"), BigDecimal.ZERO);
-        ContaCorrente contaDestinoTed = new ContaCorrente(0, "0004-4", "Diego Alves", new BigDecimal("800.00"), BigDecimal.ZERO);
+        ContaCorrente contaOrigemTed = new ContaCorrente(0, "TED-ORI-" + sufixo, "Carla Mendes", new BigDecimal("5000.00"), BigDecimal.ZERO);
+        ContaCorrente contaDestinoTed = new ContaCorrente(0, "TED-DST-" + sufixo, "Diego Alves", new BigDecimal("800.00"), BigDecimal.ZERO);
 
         long idOrigemTed = repositorioConta.salvar(contaOrigemTed);
         long idDestinoTed = repositorioConta.salvar(contaDestinoTed);
