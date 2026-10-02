@@ -54,3 +54,11 @@ CREATE TABLE IF NOT EXISTS transferencia (
     forma TEXT NOT NULL,
     data_hora TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS cartao (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tipo TEXT NOT NULL,
+    numero TEXT NOT NULL UNIQUE,
+    titular TEXT NOT NULL,
+    valor NUMERIC NOT NULL
+);

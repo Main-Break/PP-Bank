@@ -3,13 +3,16 @@ package com.ppbank.repository;
 import com.ppbank.database.Database;
 import com.ppbank.model.Colaborador;
 import com.ppbank.model.HashSenha;
+import com.ppbank.service.ConsultaColaboradores;
 import com.ppbank.service.RepositorioColaborador;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ColaboradorRepositorioSqlite implements RepositorioColaborador {
+public class ColaboradorRepositorioSqlite implements RepositorioColaborador, ConsultaColaboradores {
 
     @Override
     public void salvar(Colaborador colaborador, HashSenha credencial) {
@@ -52,6 +55,30 @@ public class ColaboradorRepositorioSqlite implements RepositorioColaborador {
         } catch (SQLException e) {
             throw new RuntimeException("Não foi possível buscar o colaborador.", e);
         }
+    }
+
+    @Override
+    public List<Colaborador> listarTodos() {
+        String sql = "SELECT id, nome, usuario, cpf, agencia FROM colaborador ORDER BY nome";
+        List<Colaborador> colaboradores = new ArrayList<>();
+
+        try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                colaboradores.add(new Colaborador(
+                        resultado.getLong("id"),
+                        resultado.getString("nome"),
+                        resultado.getString("usuario"),
+                        resultado.getString("cpf"),
+                        resultado.getString("agencia")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível listar os colaboradores.", e);
+        }
+
+        return colaboradores;
     }
 
     @Override

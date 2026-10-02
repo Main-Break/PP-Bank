@@ -4,6 +4,7 @@ import com.ppbank.database.Database;
 import com.ppbank.model.Conta;
 import com.ppbank.model.ContaCorrente;
 import com.ppbank.model.ContaPoupanca;
+import com.ppbank.service.ConsultaContas;
 import com.ppbank.service.RepositorioConta;
 
 import java.math.BigDecimal;
@@ -11,10 +12,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class ContaRepositorioSqlite implements RepositorioConta {
+public class ContaRepositorioSqlite implements RepositorioConta, ConsultaContas {
 
     private record DadosConta(long id, String numero, String titular, BigDecimal saldo, BigDecimal parametro) {
     }
@@ -83,6 +86,36 @@ public class ContaRepositorioSqlite implements RepositorioConta {
             comando.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Não foi possível atualizar a conta.", e);
+        }
+    }
+
+    @Override
+    public List<Conta> listarTodas() {
+        String sql = "SELECT id, tipo, numero, titular, saldo, parametro FROM conta ORDER BY numero";
+        List<Conta> contas = new ArrayList<>();
+
+        try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                contas.add(this.mapear(resultado));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível listar as contas.", e);
+        }
+
+        return contas;
+    }
+
+    @Override
+    public void excluir(long id) {
+        String sql = "DELETE FROM conta WHERE id = ?";
+
+        try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql)) {
+            comando.setLong(1, id);
+            comando.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível excluir a conta.", e);
         }
     }
 

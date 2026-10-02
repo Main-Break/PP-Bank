@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Banco {
 
@@ -39,6 +41,23 @@ public class Banco {
         } catch (SQLException e) {
             throw new RuntimeException("Não foi possível buscar o banco.", e);
         }
+    }
+
+    public List<com.ppbank.model.Banco> listarTodos() {
+        String sql = "SELECT id, nome, codigo, cnpj, endereco FROM banco ORDER BY nome";
+        List<com.ppbank.model.Banco> bancos = new ArrayList<>();
+
+        try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                bancos.add(this.mapear(resultado));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível listar os bancos.", e);
+        }
+
+        return bancos;
     }
 
     public void atualizar(long id, String nome, String codigo, String cnpj, String endereco) {

@@ -3,13 +3,17 @@ package com.ppbank.cli;
 import com.ppbank.repository.ColaboradorRepositorioSqlite;
 import com.ppbank.service.CodificadorSenhaSha256;
 import com.ppbank.service.ServicoColaborador;
+import com.ppbank.validacao.ValidadorDocumento;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuColaborador extends MenuBase {
 
+    private final ColaboradorRepositorioSqlite repositorioColaboradores = new ColaboradorRepositorioSqlite();
     private final ServicoColaborador servicoColaborador =
-            new ServicoColaborador(new ColaboradorRepositorioSqlite(), new CodificadorSenhaSha256());
+            new ServicoColaborador(this.repositorioColaboradores, new CodificadorSenhaSha256());
 
     @Override
     public void exibir() {
@@ -20,6 +24,7 @@ public class MenuColaborador extends MenuBase {
         System.out.println("+-----------------------------+");
         System.out.println("[1] - Criar Colaborador");
         System.out.println("[2] - Testar Autenticação");
+        System.out.println("[3] - Listar Colaboradores");
         System.out.println("+-----------------------------+");
         System.out.println("[0] - Voltar");
         System.out.println("+-----------------------------+");
@@ -33,6 +38,9 @@ public class MenuColaborador extends MenuBase {
                 return this;
             case 2:
                 this.testarAutenticacao(leitor);
+                return this;
+            case 3:
+                this.listarColaboradores(leitor);
                 return this;
             case 0:
                 return new MenuBanco();
@@ -54,6 +62,12 @@ public class MenuColaborador extends MenuBase {
         System.out.print("Informe o CPF do colaborador: ");
         String cpf = leitor.nextLine();
 
+        if (!ValidadorDocumento.validarCpf(cpf)) {
+            System.out.println("CPF inválido.");
+            this.pausar(leitor);
+            return;
+        }
+
         System.out.print("Informe a agência a qual ele pertence: ");
         String agencia = leitor.nextLine();
 
@@ -73,6 +87,20 @@ public class MenuColaborador extends MenuBase {
         boolean autenticado = this.servicoColaborador.autenticar(usuario, senha);
 
         System.out.println(autenticado ? "Credenciais válidas." : "Credenciais inválidas.");
+        this.pausar(leitor);
+    }
+
+    void listarColaboradores(Scanner leitor) {
+        String[] colunas = {"id", "nome", "usuario", "cpf", "agencia"};
+        List<String[]> linhas = new ArrayList<>();
+
+        for (var item : this.repositorioColaboradores.listarTodos()) {
+            linhas.add(new String[]{
+                    String.valueOf(item.getId()), item.getNome(), item.getUsuario(), item.getCpf(), item.getAgencia()
+            });
+        }
+
+        this.exibirTabela(colunas, linhas);
         this.pausar(leitor);
     }
 
