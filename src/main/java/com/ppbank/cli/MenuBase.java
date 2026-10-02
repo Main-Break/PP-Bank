@@ -12,9 +12,13 @@ public abstract class MenuBase implements Menu {
 
     protected Menu opcaoInvalida(Scanner leitor) {
         System.out.println("Opção inválida!");
+        this.pausar(leitor);
+        return this;
+    }
+
+    protected void pausar(Scanner leitor) {
         System.out.print("Pressione ENTER para continuar...");
         leitor.nextLine();
-        return this;
     }
 
     protected void funcaoNaoImplementada() {

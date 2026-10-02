@@ -1,12 +1,14 @@
 package com.ppbank.cli;
 
 import com.ppbank.controller.Banco;
+import com.ppbank.controller.Filial;
 
 import java.util.Scanner;
 
 public class MenuBanco extends MenuBase {
 
-    private final Scanner leitor_menu = new Scanner(System.in);
+    private final Banco banco = new Banco();
+    private final Filial filial = new Filial();
 
     @Override
     public void exibir() {
@@ -27,13 +29,12 @@ public class MenuBanco extends MenuBase {
     public Menu processarOpcao(int opcao, Scanner leitor) {
         switch (opcao) {
             case 1:
-                this.criarFilial();
+                this.criarFilial(leitor);
                 return this;
             case 2:
-                this.colaboradores();
-                return this;
+                return new MenuColaborador();
             case 3:
-                this.editarInformacoesBanco();
+                this.editarInformacoesBanco(leitor);
                 return this;
             case 0:
                 return new MenuPrincipal();
@@ -42,36 +43,56 @@ public class MenuBanco extends MenuBase {
         }
     }
 
-    void criarFilial() {
-        Banco banco = new Banco();
+    void criarFilial(Scanner leitor) {
+        var bancoExistente = this.banco.buscarUnico();
+
+        if (bancoExistente == null) {
+            System.out.println("Configure as informações do banco antes de criar uma filial.");
+            this.pausar(leitor);
+            return;
+        }
+
+        System.out.print("Informe o nome da filial: ");
+        String nome = leitor.nextLine();
+
+        System.out.print("Informe o código da filial: ");
+        String codigo = leitor.nextLine();
+
+        System.out.print("Informe o CNPJ da filial: ");
+        String cnpj = leitor.nextLine();
+
+        System.out.print("Informe o endereço da filial: ");
+        String endereco = leitor.nextLine();
+
+        this.filial.criar(bancoExistente.getId(), nome, codigo, cnpj, endereco);
+
+        System.out.println("Filial criada com sucesso.");
+        this.pausar(leitor);
+    }
+
+    void editarInformacoesBanco(Scanner leitor) {
+        var bancoExistente = this.banco.buscarUnico();
 
         System.out.print("Informe o nome do banco: ");
-        String nome = this.leitor_menu.nextLine();
+        String nome = leitor.nextLine();
 
-        System.out.print("Informe o codigo da agencia: ");
-        String codigo = this.leitor_menu.nextLine();
+        System.out.print("Informe o código do banco: ");
+        String codigo = leitor.nextLine();
 
-        System.out.print("Informe o CNPJ da agenda: ");
-        String cnpj = this.leitor_menu.nextLine();
+        System.out.print("Informe o CNPJ do banco: ");
+        String cnpj = leitor.nextLine();
 
-        System.out.print("Informe o endereco: ");
-        String endereco = this.leitor_menu.nextLine();
+        System.out.print("Informe o endereço do banco: ");
+        String endereco = leitor.nextLine();
 
-        banco.criar(
-                nome=nome,
-                codigo=codigo,
-                cnpj=cnpj,
-                endereco=endereco
-        );
+        if (bancoExistente == null) {
+            this.banco.criar(nome, codigo, cnpj, endereco);
+        } else {
+            this.banco.atualizar(bancoExistente.getId(), nome, codigo, cnpj, endereco);
+        }
 
-    }
-
-    void colaboradores() {
-        this.funcaoNaoImplementada();
-    }
-
-    void editarInformacoesBanco() {
-        this.funcaoNaoImplementada();
+        System.out.println("Informações do banco salvas com sucesso.");
+        this.pausar(leitor);
     }
 
 }
