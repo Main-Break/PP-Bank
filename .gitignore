@@ -24,7 +24,7 @@ hs_err_pid*
 replay_pid*
 
 # Maven
-target/
+target/.idea/
 
 # Build manual (javac)
 out/
@@ -36,3 +36,4 @@ out/
 .idea/
 *.iml
 .vscode/
+build/
