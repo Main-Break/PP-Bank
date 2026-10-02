@@ -22,7 +22,7 @@ public class MenuCartao extends MenuBase {
         System.out.println("[2] - Cartão de Débito");
         System.out.println("[3] - Cartão Virtual");
         System.out.println("+-----------------------------+");
-        System.out.println("[0] - Sair");
+        System.out.println("[0] - Voltar");
         System.out.println("+-----------------------------+");
     }
 

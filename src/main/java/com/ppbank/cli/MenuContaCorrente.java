@@ -27,7 +27,7 @@ public class MenuContaCorrente extends MenuBase {
         System.out.println("[3] - Desativar");
         System.out.println("[4] - Pesquisar");
         System.out.println("+-----------------------------+");
-        System.out.println("[0] - Sair");
+        System.out.println("[0] - Voltar");
         System.out.println("+-----------------------------+");
     }
 

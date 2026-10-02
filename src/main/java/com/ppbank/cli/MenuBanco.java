@@ -26,7 +26,7 @@ public class MenuBanco extends MenuBase {
         System.out.println("[4] - Listar Bancos");
         System.out.println("[5] - Listar Filiais");
         System.out.println("+-----------------------------+");
-        System.out.println("[0] - Sair");
+        System.out.println("[0] - Voltar");
         System.out.println("+-----------------------------+");
     }
 
