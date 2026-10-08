@@ -1,6 +1,7 @@
 package com.ppbank.controller;
 
 import com.ppbank.database.Database;
+import com.ppbank.model.Banco;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Banco {
+public class BancoController {
 
     public long criar(String nome, String codigo, String cnpj, String endereco) {
         String sql = "INSERT INTO banco (nome, codigo, cnpj, endereco) VALUES (?, ?, ?, ?)";
@@ -31,7 +32,7 @@ public class Banco {
         }
     }
 
-    public com.ppbank.model.Banco buscarUnico() {
+    public Banco buscarUnico() {
         String sql = "SELECT id, nome, codigo, cnpj, endereco FROM banco ORDER BY id LIMIT 1";
 
         try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql);
@@ -43,9 +44,9 @@ public class Banco {
         }
     }
 
-    public List<com.ppbank.model.Banco> listarTodos() {
+    public List<Banco> listarTodos() {
         String sql = "SELECT id, nome, codigo, cnpj, endereco FROM banco ORDER BY nome";
-        List<com.ppbank.model.Banco> bancos = new ArrayList<>();
+        List<Banco> bancos = new ArrayList<>();
 
         try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql);
              ResultSet resultado = comando.executeQuery()) {
@@ -75,8 +76,8 @@ public class Banco {
         }
     }
 
-    private com.ppbank.model.Banco mapear(ResultSet resultado) throws SQLException {
-        return new com.ppbank.model.Banco(
+    private Banco mapear(ResultSet resultado) throws SQLException {
+        return new Banco(
                 resultado.getLong("id"),
                 resultado.getString("nome"),
                 resultado.getString("codigo"),

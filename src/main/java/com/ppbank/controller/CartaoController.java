@@ -1,6 +1,7 @@
 package com.ppbank.controller;
 
 import com.ppbank.database.Database;
+import com.ppbank.model.Cartao;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cartao {
+public class CartaoController {
 
     public long criar(String tipo, String numero, String titular, BigDecimal valor) {
         String sql = "INSERT INTO cartao (tipo, numero, titular, valor) VALUES (?, ?, ?, ?)";
@@ -32,16 +33,16 @@ public class Cartao {
         }
     }
 
-    public List<com.ppbank.model.Cartao> listarPorTipo(String tipo) {
+    public List<Cartao> listarPorTipo(String tipo) {
         String sql = "SELECT id, tipo, numero, titular, valor FROM cartao WHERE tipo = ? ORDER BY numero";
-        List<com.ppbank.model.Cartao> cartoes = new ArrayList<>();
+        List<Cartao> cartoes = new ArrayList<>();
 
         try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql)) {
             comando.setString(1, tipo);
 
             try (ResultSet resultado = comando.executeQuery()) {
                 while (resultado.next()) {
-                    cartoes.add(new com.ppbank.model.Cartao(
+                    cartoes.add(new Cartao(
                             resultado.getLong("id"),
                             resultado.getString("tipo"),
                             resultado.getString("numero"),

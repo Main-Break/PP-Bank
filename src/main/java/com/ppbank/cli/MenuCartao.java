@@ -1,6 +1,6 @@
 package com.ppbank.cli;
 
-import com.ppbank.controller.Cartao;
+import com.ppbank.controller.CartaoController;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MenuCartao extends MenuBase {
 
-    private final Cartao cartao = new Cartao();
+    private final CartaoController cartao = new CartaoController();
 
     @Override
     public void exibir() {

@@ -1,7 +1,7 @@
 package com.ppbank.cli;
 
-import com.ppbank.controller.Banco;
-import com.ppbank.controller.Filial;
+import com.ppbank.controller.BancoController;
+import com.ppbank.controller.FilialController;
 import com.ppbank.validacao.ValidadorDocumento;
 
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class MenuBanco extends MenuBase {
 
-    private final Banco banco = new Banco();
-    private final Filial filial = new Filial();
+    private final BancoController banco = new BancoController();
+    private final FilialController filial = new FilialController();
 
     @Override
     public void exibir() {
