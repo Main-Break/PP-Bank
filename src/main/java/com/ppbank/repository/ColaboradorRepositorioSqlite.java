@@ -3,7 +3,6 @@ package com.ppbank.repository;
 import com.ppbank.database.Database;
 import com.ppbank.model.Colaborador;
 import com.ppbank.model.HashSenha;
-import com.ppbank.service.RepositorioColaborador;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

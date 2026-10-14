@@ -2,6 +2,7 @@ package com.ppbank.service;
 
 import com.ppbank.model.Colaborador;
 import com.ppbank.model.HashSenha;
+import com.ppbank.repository.RepositorioColaborador;
 
 public class ServicoColaborador {
 

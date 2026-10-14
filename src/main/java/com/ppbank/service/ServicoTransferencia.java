@@ -2,6 +2,8 @@ package com.ppbank.service;
 
 import com.ppbank.model.Conta;
 import com.ppbank.model.Transferencia;
+import com.ppbank.repository.RepositorioConta;
+import com.ppbank.repository.RepositorioTransferencia;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

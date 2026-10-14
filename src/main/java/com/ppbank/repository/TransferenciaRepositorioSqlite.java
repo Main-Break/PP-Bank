@@ -2,7 +2,6 @@ package com.ppbank.repository;
 
 import com.ppbank.database.Database;
 import com.ppbank.model.Transferencia;
-import com.ppbank.service.RepositorioTransferencia;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

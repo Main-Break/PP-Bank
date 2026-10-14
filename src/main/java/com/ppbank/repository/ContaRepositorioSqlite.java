@@ -4,7 +4,6 @@ import com.ppbank.database.Database;
 import com.ppbank.model.Conta;
 import com.ppbank.model.ContaCorrente;
 import com.ppbank.model.ContaPoupanca;
-import com.ppbank.service.RepositorioConta;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
