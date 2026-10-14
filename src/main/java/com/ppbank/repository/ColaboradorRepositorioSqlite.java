@@ -3,7 +3,6 @@ package com.ppbank.repository;
 import com.ppbank.database.Database;
 import com.ppbank.model.Colaborador;
 import com.ppbank.model.HashSenha;
-import com.ppbank.service.ConsultaColaboradores;
 import com.ppbank.service.RepositorioColaborador;
 
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColaboradorRepositorioSqlite implements RepositorioColaborador, ConsultaColaboradores {
+public class ColaboradorRepositorioSqlite implements RepositorioColaborador {
 
     @Override
     public void salvar(Colaborador colaborador, HashSenha credencial) {
@@ -57,7 +56,6 @@ public class ColaboradorRepositorioSqlite implements RepositorioColaborador, Con
         }
     }
 
-    @Override
     public List<Colaborador> listarTodos() {
         String sql = "SELECT id, nome, usuario, cpf, agencia FROM colaborador ORDER BY nome";
         List<Colaborador> colaboradores = new ArrayList<>();

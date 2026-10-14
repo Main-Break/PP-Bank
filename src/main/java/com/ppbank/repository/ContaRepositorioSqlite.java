@@ -4,7 +4,6 @@ import com.ppbank.database.Database;
 import com.ppbank.model.Conta;
 import com.ppbank.model.ContaCorrente;
 import com.ppbank.model.ContaPoupanca;
-import com.ppbank.service.ConsultaContas;
 import com.ppbank.service.RepositorioConta;
 
 import java.math.BigDecimal;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class ContaRepositorioSqlite implements RepositorioConta, ConsultaContas {
+public class ContaRepositorioSqlite implements RepositorioConta {
 
     private record DadosConta(long id, String numero, String titular, BigDecimal saldo, BigDecimal parametro) {
     }
@@ -89,7 +88,6 @@ public class ContaRepositorioSqlite implements RepositorioConta, ConsultaContas 
         }
     }
 
-    @Override
     public List<Conta> listarTodas() {
         String sql = "SELECT id, tipo, numero, titular, saldo, parametro FROM conta ORDER BY numero";
         List<Conta> contas = new ArrayList<>();
@@ -107,7 +105,6 @@ public class ContaRepositorioSqlite implements RepositorioConta, ConsultaContas 
         return contas;
     }
 
-    @Override
     public void excluir(long id) {
         String sql = "DELETE FROM conta WHERE id = ?";
 
