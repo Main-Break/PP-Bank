@@ -31,6 +31,11 @@ public class ServicoTransferencia {
     }
 
     public Transferencia transferir(long idContaOrigem, long idContaDestino, BigDecimal valor, String contatoNotificacao) {
+        // Origem e destino iguais criariam dinheiro do nada.
+        if (idContaOrigem == idContaDestino) {
+            throw new IllegalArgumentException("A conta de origem e a de destino devem ser diferentes.");
+        }
+
         // 1. Busca as contas.
         Conta origem = this.repositorioConta.buscarPorId(idContaOrigem);
         Conta destino = this.repositorioConta.buscarPorId(idContaDestino);
