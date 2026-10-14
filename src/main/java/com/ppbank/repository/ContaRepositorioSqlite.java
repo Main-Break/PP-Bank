@@ -12,22 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 public class ContaRepositorioSqlite implements RepositorioConta {
-
-    private record DadosConta(long id, String numero, String titular, BigDecimal saldo, BigDecimal parametro) {
-    }
-
-    /**
-     * Reconstrói o tipo concreto de Conta a partir da coluna "tipo" (persistência),
-     * sem instanceof/switch: nova conta = só registrar uma nova fábrica aqui.
-     */
-    private static final Map<String, Function<DadosConta, Conta>> FABRICAS = Map.of(
-            "CORRENTE", dados -> new ContaCorrente(dados.id(), dados.numero(), dados.titular(), dados.saldo(), dados.parametro()),
-            "POUPANCA", dados -> new ContaPoupanca(dados.id(), dados.numero(), dados.titular(), dados.saldo(), dados.parametro())
-    );
 
     @Override
     public Conta buscarPorId(long id) {
@@ -116,15 +102,17 @@ public class ContaRepositorioSqlite implements RepositorioConta {
     }
 
     private Conta mapear(ResultSet resultado) throws SQLException {
-        DadosConta dados = new DadosConta(
-                resultado.getLong("id"),
-                resultado.getString("numero"),
-                resultado.getString("titular"),
-                resultado.getBigDecimal("saldo"),
-                resultado.getBigDecimal("parametro")
-        );
+        long id = resultado.getLong("id");
+        String numero = resultado.getString("numero");
+        String titular = resultado.getString("titular");
+        BigDecimal saldo = resultado.getBigDecimal("saldo");
+        BigDecimal parametro = resultado.getBigDecimal("parametro");
 
-        return FABRICAS.get(resultado.getString("tipo")).apply(dados);
+        if (resultado.getString("tipo").equals("POUPANCA")) {
+            return new ContaPoupanca(id, numero, titular, saldo, parametro);
+        }
+
+        return new ContaCorrente(id, numero, titular, saldo, parametro);
     }
 
 }
