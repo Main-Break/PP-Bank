@@ -69,8 +69,7 @@ public class MenuCartao extends Menu {
         System.out.print("Informe o titular: ");
         String titular = leitor.nextLine();
 
-        System.out.print("Informe o " + rotuloValor.toLowerCase() + ": ");
-        BigDecimal valor = new BigDecimal(leitor.nextLine());
+        BigDecimal valor = this.lerDecimal(leitor, "Informe o " + rotuloValor.toLowerCase() + ": ");
 
         this.repositorioCartoes.criar(tipo, numero, titular, valor);
 

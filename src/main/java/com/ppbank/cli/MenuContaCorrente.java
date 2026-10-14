@@ -60,11 +60,9 @@ public class MenuContaCorrente extends Menu {
         System.out.print("Informe o titular: ");
         String titular = leitor.nextLine();
 
-        System.out.print("Informe o saldo inicial: ");
-        BigDecimal saldo = new BigDecimal(leitor.nextLine());
+        BigDecimal saldo = this.lerDecimal(leitor, "Informe o saldo inicial: ");
 
-        System.out.print("Informe o limite do cheque especial: ");
-        BigDecimal limite = new BigDecimal(leitor.nextLine());
+        BigDecimal limite = this.lerDecimal(leitor, "Informe o limite do cheque especial: ");
 
         this.repositorioContas.salvar(new ContaCorrente(0, numero, titular, saldo, limite));
 
@@ -90,8 +88,7 @@ public class MenuContaCorrente extends Menu {
     }
 
     void desativarConta(Scanner leitor) {
-        System.out.print("Informe o ID da conta a desativar: ");
-        long id = Long.parseLong(leitor.nextLine());
+        long id = this.lerNumero(leitor, "Informe o ID da conta a desativar: ");
 
         this.repositorioContas.excluir(id);
 

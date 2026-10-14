@@ -1,5 +1,6 @@
 package com.ppbank.cli;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,6 +25,28 @@ public abstract class Menu {
     protected void pausar(Scanner leitor) {
         System.out.print("Pressione ENTER para continuar...");
         leitor.nextLine();
+    }
+
+    protected BigDecimal lerDecimal(Scanner leitor, String pergunta) {
+        while (true) {
+            System.out.print(pergunta);
+            try {
+                return new BigDecimal(leitor.nextLine().trim().replace(",", "."));
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido. Digite um número, ex: 150.00");
+            }
+        }
+    }
+
+    protected long lerNumero(Scanner leitor, String pergunta) {
+        while (true) {
+            System.out.print(pergunta);
+            try {
+                return Long.parseLong(leitor.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido. Digite um número inteiro.");
+            }
+        }
     }
 
     /**
