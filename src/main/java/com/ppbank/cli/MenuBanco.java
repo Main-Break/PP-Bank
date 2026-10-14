@@ -1,7 +1,7 @@
 package com.ppbank.cli;
 
-import com.ppbank.controller.BancoController;
-import com.ppbank.controller.FilialController;
+import com.ppbank.repository.BancoRepositorioSqlite;
+import com.ppbank.repository.FilialRepositorioSqlite;
 import com.ppbank.validacao.ValidadorDocumento;
 
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class MenuBanco extends Menu {
 
-    private final BancoController banco = new BancoController();
-    private final FilialController filial = new FilialController();
+    private final BancoRepositorioSqlite repositorioBanco = new BancoRepositorioSqlite();
+    private final FilialRepositorioSqlite repositorioFiliais = new FilialRepositorioSqlite();
 
     @Override
     public void exibir() {
@@ -55,7 +55,7 @@ public class MenuBanco extends Menu {
     }
 
     void criarFilial(Scanner leitor) {
-        var bancoExistente = this.banco.buscarUnico();
+        var bancoExistente = this.repositorioBanco.buscarUnico();
 
         if (bancoExistente == null) {
             System.out.println("Configure as informações do banco antes de criar uma filial.");
@@ -81,14 +81,14 @@ public class MenuBanco extends Menu {
         System.out.print("Informe o endereço da filial: ");
         String endereco = leitor.nextLine();
 
-        this.filial.criar(bancoExistente.getId(), nome, codigo, cnpj, endereco);
+        this.repositorioFiliais.criar(bancoExistente.getId(), nome, codigo, cnpj, endereco);
 
         System.out.println("Filial criada com sucesso.");
         this.pausar(leitor);
     }
 
     void editarInformacoesBanco(Scanner leitor) {
-        var bancoExistente = this.banco.buscarUnico();
+        var bancoExistente = this.repositorioBanco.buscarUnico();
 
         System.out.print("Informe o nome do banco: ");
         String nome = leitor.nextLine();
@@ -109,9 +109,9 @@ public class MenuBanco extends Menu {
         String endereco = leitor.nextLine();
 
         if (bancoExistente == null) {
-            this.banco.criar(nome, codigo, cnpj, endereco);
+            this.repositorioBanco.criar(nome, codigo, cnpj, endereco);
         } else {
-            this.banco.atualizar(bancoExistente.getId(), nome, codigo, cnpj, endereco);
+            this.repositorioBanco.atualizar(bancoExistente.getId(), nome, codigo, cnpj, endereco);
         }
 
         System.out.println("Informações do banco salvas com sucesso.");
@@ -122,7 +122,7 @@ public class MenuBanco extends Menu {
         String[] colunas = {"id", "nome", "codigo", "cnpj", "endereco"};
         List<String[]> linhas = new ArrayList<>();
 
-        for (var item : this.banco.listarTodos()) {
+        for (var item : this.repositorioBanco.listarTodos()) {
             linhas.add(new String[]{
                     String.valueOf(item.getId()), item.getNome(), item.getCodigo(), item.getCnpj(), item.getEndereco()
             });
@@ -133,7 +133,7 @@ public class MenuBanco extends Menu {
     }
 
     void listarFiliais(Scanner leitor) {
-        var bancoExistente = this.banco.buscarUnico();
+        var bancoExistente = this.repositorioBanco.buscarUnico();
 
         if (bancoExistente == null) {
             System.out.println("Nenhum banco configurado ainda.");
@@ -144,7 +144,7 @@ public class MenuBanco extends Menu {
         String[] colunas = {"id", "nome", "codigo", "cnpj", "endereco"};
         List<String[]> linhas = new ArrayList<>();
 
-        for (var item : this.filial.listarPorBanco(bancoExistente.getId())) {
+        for (var item : this.repositorioFiliais.listarPorBanco(bancoExistente.getId())) {
             linhas.add(new String[]{
                     String.valueOf(item.getId()), item.getNome(), item.getCodigo(), item.getCnpj(), item.getEndereco()
             });

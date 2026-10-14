@@ -1,4 +1,4 @@
-package com.ppbank.controller;
+package com.ppbank.repository;
 
 import com.ppbank.database.Database;
 import com.ppbank.model.Cartao;
@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartaoController {
+public class CartaoRepositorioSqlite {
 
     public long criar(String tipo, String numero, String titular, BigDecimal valor) {
         String sql = "INSERT INTO cartao (tipo, numero, titular, valor) VALUES (?, ?, ?, ?)";

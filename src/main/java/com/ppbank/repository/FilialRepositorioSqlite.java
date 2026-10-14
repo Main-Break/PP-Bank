@@ -1,4 +1,4 @@
-package com.ppbank.controller;
+package com.ppbank.repository;
 
 import com.ppbank.database.Database;
 import com.ppbank.model.Filial;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilialController {
+public class FilialRepositorioSqlite {
 
     public long criar(long idBanco, String nome, String codigo, String cnpj, String endereco) {
         String sql = "INSERT INTO filial (id_banco, nome, codigo, cnpj, endereco) VALUES (?, ?, ?, ?, ?)";

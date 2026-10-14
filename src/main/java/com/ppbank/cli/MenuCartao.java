@@ -1,6 +1,6 @@
 package com.ppbank.cli;
 
-import com.ppbank.controller.CartaoController;
+import com.ppbank.repository.CartaoRepositorioSqlite;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MenuCartao extends Menu {
 
-    private final CartaoController cartao = new CartaoController();
+    private final CartaoRepositorioSqlite repositorioCartoes = new CartaoRepositorioSqlite();
 
     @Override
     public void exibir() {
@@ -72,7 +72,7 @@ public class MenuCartao extends Menu {
         System.out.print("Informe o " + rotuloValor.toLowerCase() + ": ");
         BigDecimal valor = new BigDecimal(leitor.nextLine());
 
-        this.cartao.criar(tipo, numero, titular, valor);
+        this.repositorioCartoes.criar(tipo, numero, titular, valor);
 
         System.out.println("Cartão criado com sucesso.");
         this.pausar(leitor);
@@ -82,7 +82,7 @@ public class MenuCartao extends Menu {
         String[] colunas = {"id", "tipo", "numero", "titular", rotuloValor.toLowerCase()};
         List<String[]> linhas = new ArrayList<>();
 
-        for (var item : this.cartao.listarPorTipo(tipo)) {
+        for (var item : this.repositorioCartoes.listarPorTipo(tipo)) {
             linhas.add(new String[]{
                     String.valueOf(item.getId()), item.getTipo(), item.getNumero(), item.getTitular(),
                     item.getValor().toString()
