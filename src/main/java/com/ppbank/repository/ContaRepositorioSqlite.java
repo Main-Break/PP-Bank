@@ -1,6 +1,7 @@
 package com.ppbank.repository;
 
 import com.ppbank.database.Database;
+import com.ppbank.exception.ContaNaoEncontradaException;
 import com.ppbank.model.Conta;
 import com.ppbank.model.ContaCorrente;
 import com.ppbank.model.ContaPoupanca;
@@ -23,7 +24,11 @@ public class ContaRepositorioSqlite implements RepositorioConta {
             comando.setLong(1, id);
 
             try (ResultSet resultado = comando.executeQuery()) {
-                return resultado.next() ? this.mapear(resultado) : null;
+                if (!resultado.next()) {
+                    throw new ContaNaoEncontradaException(id);
+                }
+
+                return this.mapear(resultado);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Não foi possível buscar a conta.", e);
