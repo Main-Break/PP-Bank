@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/** RepositorioConta em SQLite. Também lista e exclui contas para os menus. */
 public class ContaRepositorioSqlite implements RepositorioConta {
 
     @Override
@@ -37,6 +38,7 @@ public class ContaRepositorioSqlite implements RepositorioConta {
 
     @Override
     public long salvar(Conta conta) {
+        // id 0 = conta nova (INSERT). Senão, atualiza só o saldo (UPDATE).
         if (conta.getId() == 0) {
             return this.inserir(conta);
         }
@@ -113,6 +115,7 @@ public class ContaRepositorioSqlite implements RepositorioConta {
         BigDecimal saldo = resultado.getBigDecimal("saldo");
         BigDecimal parametro = resultado.getBigDecimal("parametro");
 
+        // A coluna "tipo" define qual classe de Conta recriar.
         if (resultado.getString("tipo").equals("POUPANCA")) {
             return new ContaPoupanca(id, numero, titular, saldo, parametro);
         }

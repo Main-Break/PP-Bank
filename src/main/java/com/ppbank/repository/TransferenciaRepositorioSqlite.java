@@ -6,6 +6,7 @@ import com.ppbank.model.Transferencia;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/** RepositorioTransferencia em SQLite. */
 public class TransferenciaRepositorioSqlite implements RepositorioTransferencia {
 
     @Override

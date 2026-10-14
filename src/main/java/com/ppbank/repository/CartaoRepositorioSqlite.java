@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Acesso à tabela cartao. Sem interface: é só cadastro, sem regra de negócio. */
 public class CartaoRepositorioSqlite {
 
     public long criar(String tipo, String numero, String titular, BigDecimal valor) {

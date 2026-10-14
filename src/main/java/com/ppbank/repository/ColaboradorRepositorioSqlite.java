@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/** RepositorioColaborador em SQLite. Também lista colaboradores para o menu. */
 public class ColaboradorRepositorioSqlite implements RepositorioColaborador {
 
     @Override

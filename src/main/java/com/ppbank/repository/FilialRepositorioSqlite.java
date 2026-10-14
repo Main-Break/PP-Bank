@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Acesso à tabela filial. Sem interface: é só cadastro, sem regra de negócio. */
 public class FilialRepositorioSqlite {
 
     public long criar(long idBanco, String nome, String codigo, String cnpj, String endereco) {

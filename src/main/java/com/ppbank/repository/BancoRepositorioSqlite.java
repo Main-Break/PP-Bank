@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Acesso à tabela banco. Sem interface: é só cadastro, sem regra de negócio. */
 public class BancoRepositorioSqlite {
 
     public long criar(String nome, String codigo, String cnpj, String endereco) {
