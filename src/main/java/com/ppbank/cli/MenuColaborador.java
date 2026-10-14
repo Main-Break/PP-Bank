@@ -1,7 +1,7 @@
 package com.ppbank.cli;
 
 import com.ppbank.repository.ColaboradorRepositorioSqlite;
-import com.ppbank.service.CodificadorSenhaSha256;
+import com.ppbank.service.CodificadorSenha;
 import com.ppbank.service.ServicoColaborador;
 import com.ppbank.validacao.ValidadorDocumento;
 
@@ -13,7 +13,7 @@ public class MenuColaborador extends Menu {
 
     private final ColaboradorRepositorioSqlite repositorioColaboradores = new ColaboradorRepositorioSqlite();
     private final ServicoColaborador servicoColaborador =
-            new ServicoColaborador(this.repositorioColaboradores, new CodificadorSenhaSha256());
+            new ServicoColaborador(this.repositorioColaboradores, new CodificadorSenha());
 
     @Override
     public void exibir() {
