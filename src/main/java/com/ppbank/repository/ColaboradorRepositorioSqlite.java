@@ -31,31 +31,6 @@ public class ColaboradorRepositorioSqlite implements RepositorioColaborador {
         }
     }
 
-    @Override
-    public Colaborador buscarPorUsuario(String usuario) {
-        String sql = "SELECT id, nome, usuario, cpf, agencia FROM colaborador WHERE usuario = ?";
-
-        try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql)) {
-            comando.setString(1, usuario);
-
-            try (ResultSet resultado = comando.executeQuery()) {
-                if (!resultado.next()) {
-                    return null;
-                }
-
-                return new Colaborador(
-                        resultado.getLong("id"),
-                        resultado.getString("nome"),
-                        resultado.getString("usuario"),
-                        resultado.getString("cpf"),
-                        resultado.getString("agencia")
-                );
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Não foi possível buscar o colaborador.", e);
-        }
-    }
-
     public List<Colaborador> listarTodos() {
         String sql = "SELECT id, nome, usuario, cpf, agencia FROM colaborador ORDER BY nome";
         List<Colaborador> colaboradores = new ArrayList<>();

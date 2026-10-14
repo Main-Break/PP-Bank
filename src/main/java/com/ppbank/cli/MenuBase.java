@@ -22,10 +22,6 @@ public abstract class MenuBase implements Menu {
         leitor.nextLine();
     }
 
-    protected void funcaoNaoImplementada() {
-        System.out.println("Função ainda não implementada.");
-    }
-
     /**
      * Exibe linhas em formato de tabela, no mesmo estilo do resultado
      * de um SELECT no cliente de linha de comando do MySQL/MariaDB.
