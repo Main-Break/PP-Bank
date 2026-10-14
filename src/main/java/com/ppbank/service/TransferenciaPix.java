@@ -4,6 +4,7 @@ import com.ppbank.model.Conta;
 
 import java.math.BigDecimal;
 
+/** Pix: transfere sem taxa. */
 public class TransferenciaPix implements FormaTransferencia {
 
     @Override

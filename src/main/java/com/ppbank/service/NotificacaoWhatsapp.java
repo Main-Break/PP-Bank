@@ -1,5 +1,6 @@
 package com.ppbank.service;
 
+/** Aviso por WhatsApp (simulado no console). */
 public class NotificacaoWhatsapp implements CanalNotificacao {
 
     @Override

@@ -1,5 +1,6 @@
 package com.ppbank.service;
 
+/** Aviso por e-mail (simulado no console). */
 public class NotificacaoEmail implements CanalNotificacao {
 
     @Override

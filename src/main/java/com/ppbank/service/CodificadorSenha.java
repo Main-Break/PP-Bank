@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/** Gera e confere hash de senha com SHA-256 e salt aleatório. */
 public class CodificadorSenha {
 
     public HashSenha codificar(String senha) {
@@ -20,6 +21,7 @@ public class CodificadorSenha {
     }
 
     private String gerarSalt() {
+        // Salt aleatório: senhas iguais geram hashes diferentes.
         byte[] bytes = new byte[16];
         new SecureRandom().nextBytes(bytes);
         return Base64.getEncoder().encodeToString(bytes);

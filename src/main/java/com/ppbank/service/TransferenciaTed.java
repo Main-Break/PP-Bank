@@ -4,6 +4,7 @@ import com.ppbank.model.Conta;
 
 import java.math.BigDecimal;
 
+/** TED: cobra R$ 10,00 de taxa da conta de origem. */
 public class TransferenciaTed implements FormaTransferencia {
 
     private static final BigDecimal TAXA = new BigDecimal("10.00");

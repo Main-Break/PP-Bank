@@ -4,6 +4,7 @@ import com.ppbank.model.Colaborador;
 import com.ppbank.model.HashSenha;
 import com.ppbank.repository.RepositorioColaborador;
 
+/** Regras de colaborador: cadastro com senha em hash e login. Dependências vêm pelo construtor (DIP). */
 public class ServicoColaborador {
 
     private final RepositorioColaborador repositorioColaborador;
@@ -28,6 +29,7 @@ public class ServicoColaborador {
             return false;
         }
 
+        // Recalcula o hash com o salt salvo e compara com o hash salvo.
         return this.codificadorSenha.verificar(senha, credencial);
     }
 
