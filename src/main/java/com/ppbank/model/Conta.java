@@ -24,16 +24,26 @@ public abstract class Conta {
     }
 
     public final void depositar(BigDecimal valor) {
+        this.validarValor(valor);
         this.saldo = this.saldo.add(valor);
     }
 
     public final void sacar(BigDecimal valor) {
+        this.validarValor(valor);
+
         if (!this.podeSacar(valor)) {
             throw new SaldoInsuficienteException(
                     "Saldo insuficiente para sacar " + valor + " da conta " + this.numero + ".");
         }
 
         this.saldo = this.saldo.subtract(valor);
+    }
+
+    // Depósito ou saque de valor zero/negativo não faz sentido.
+    private void validarValor(BigDecimal valor) {
+        if (valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("O valor deve ser maior que zero.");
+        }
     }
 
     public final BigDecimal consultarSaldo() {
