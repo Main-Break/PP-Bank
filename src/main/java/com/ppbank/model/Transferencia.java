@@ -3,6 +3,7 @@ package com.ppbank.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/** Registro de uma transferência já realizada (histórico). */
 public class Transferencia {
 
     private final long id;

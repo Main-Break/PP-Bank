@@ -2,6 +2,7 @@ package com.ppbank.model;
 
 import java.math.BigDecimal;
 
+/** Cartão de crédito, débito ou virtual. "valor" é o limite (crédito) ou o saldo (débito/virtual). */
 public class Cartao {
 
     private final long id;

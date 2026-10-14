@@ -1,5 +1,6 @@
 package com.ppbank.model;
 
+/** Dados cadastrais do banco principal (nome, código, CNPJ e endereço). */
 public class Banco {
 
     private final long id;

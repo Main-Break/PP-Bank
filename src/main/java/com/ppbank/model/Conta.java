@@ -5,8 +5,9 @@ import com.ppbank.exception.SaldoInsuficienteException;
 import java.math.BigDecimal;
 
 /**
- * sacar() e depositar() são final: nenhuma subclasse pode quebrar o contrato.
- * A única extensão permitida é o critério de saque, via podeSacar() (Template Method).
+ * Base de toda conta bancária.
+ * Template Method: sacar() e depositar() são final; cada subclasse só define podeSacar().
+ * LSP: qualquer subclasse pode ser usada onde se espera uma Conta.
  */
 public abstract class Conta {
 
@@ -51,10 +52,13 @@ public abstract class Conta {
         return titular;
     }
 
+    /** Regra de saque de cada tipo de conta. */
     protected abstract boolean podeSacar(BigDecimal valor);
 
+    /** Valor da coluna "tipo" no banco: "CORRENTE" ou "POUPANCA". */
     public abstract String getTipoPersistencia();
 
+    /** Valor da coluna "parametro": limite (corrente) ou taxa de rendimento (poupança). */
     public abstract BigDecimal getParametroPersistencia();
 
 }

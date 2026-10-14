@@ -1,5 +1,6 @@
 package com.ppbank.validacao;
 
+/** Valida CPF e CNPJ conferindo os dígitos verificadores. */
 public final class ValidadorDocumento {
 
     private ValidadorDocumento() {

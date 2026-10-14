@@ -1,5 +1,6 @@
 package com.ppbank.model;
 
+/** Agência ligada ao banco principal pelo idBanco. */
 public class Filial {
 
     private final long id;

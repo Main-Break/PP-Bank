@@ -2,6 +2,7 @@ package com.ppbank.model;
 
 import java.math.BigDecimal;
 
+/** Conta que não pode ficar negativa e rende juros pela taxaRendimento. */
 public class ContaPoupanca extends Conta {
 
     private final BigDecimal taxaRendimento;
@@ -15,12 +16,14 @@ public class ContaPoupanca extends Conta {
         return taxaRendimento;
     }
 
+    /** Deposita saldo × taxa. Usa depositar() para respeitar o contrato de Conta. */
     public void renderJuros() {
         this.depositar(this.consultarSaldo().multiply(this.taxaRendimento));
     }
 
     @Override
     protected boolean podeSacar(BigDecimal valor) {
+        // Saldo após o saque não pode ser negativo.
         return this.consultarSaldo().subtract(valor).compareTo(BigDecimal.ZERO) >= 0;
     }
 

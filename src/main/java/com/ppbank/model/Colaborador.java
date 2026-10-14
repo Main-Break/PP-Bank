@@ -1,5 +1,6 @@
 package com.ppbank.model;
 
+/** Funcionário do banco. A senha não fica aqui: vai para o banco de dados como HashSenha. */
 public class Colaborador {
 
     private final long id;
