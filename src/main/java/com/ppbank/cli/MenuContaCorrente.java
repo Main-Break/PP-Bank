@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuContaCorrente extends MenuBase {
+public class MenuContaCorrente extends Menu {
 
     private static final String TIPO = "CORRENTE";
 

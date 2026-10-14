@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuPoupanca extends MenuBase {
+public class MenuPoupanca extends Menu {
 
     private static final String TIPO = "POUPANCA";
 

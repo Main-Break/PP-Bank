@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuBanco extends MenuBase {
+public class MenuBanco extends Menu {
 
     private final BancoController banco = new BancoController();
     private final FilialController filial = new FilialController();

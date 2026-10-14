@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuColaborador extends MenuBase {
+public class MenuColaborador extends Menu {
 
     private final ColaboradorRepositorioSqlite repositorioColaboradores = new ColaboradorRepositorioSqlite();
     private final ServicoColaborador servicoColaborador =

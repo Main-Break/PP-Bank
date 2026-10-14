@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuCartao extends MenuBase {
+public class MenuCartao extends Menu {
 
     private final CartaoController cartao = new CartaoController();
 

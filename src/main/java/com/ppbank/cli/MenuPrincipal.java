@@ -2,7 +2,7 @@ package com.ppbank.cli;
 
 import java.util.Scanner;
 
-public class MenuPrincipal extends MenuBase {
+public class MenuPrincipal extends Menu {
 
     @Override
     public void exibir() {
