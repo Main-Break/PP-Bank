@@ -16,6 +16,8 @@ import com.ppbank.service.TransferenciaPix;
 import com.ppbank.service.TransferenciaTed;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /** Ponto de entrada: cria as tabelas, roda as 2 transferências de exemplo e abre a CLI. */
 public class Main {
@@ -29,22 +31,35 @@ public class Main {
     }
 
     /**
+     * Roda os cenários dentro de uma transação desfeita no final (rollback):
+     * o fluxo aparece no console, mas nenhuma conta de teste fica salva no banco.
+     */
+    private static void executarCenariosDeTransferencia() {
+        Connection conexao = Database.getInstancia().getConexao();
+
+        try {
+            conexao.setAutoCommit(false);
+            rodarCenarios();
+            conexao.rollback();
+            conexao.setAutoCommit(true);
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível desfazer a demonstração.", e);
+        }
+    }
+
+    /**
      * Demonstra o fluxo principal com duas combinações distintas de forma de
      * transferência e canal de notificação, montadas por injeção manual de
      * dependência: nenhuma delas exige alterar ServicoTransferencia (OCP).
      */
-    private static void executarCenariosDeTransferencia() {
+    private static void rodarCenarios() {
         RepositorioConta repositorioConta = new ContaRepositorioSqlite();
         RepositorioTransferencia repositorioTransferencia = new TransferenciaRepositorioSqlite();
 
-        // Sufixo único por execução: evita colidir com o número de uma conta
-        // de demonstração já persistida em execuções anteriores (conta.numero é UNIQUE).
-        String sufixo = String.valueOf(System.currentTimeMillis());
-
         System.out.println("=== Cenário 1: Transferência via Pix + notificação por WhatsApp ===");
 
-        ContaCorrente contaOrigemPix = new ContaCorrente(0, "PIX-ORI-" + sufixo, "Ana Souza", new BigDecimal("1000.00"), new BigDecimal("200.00"));
-        ContaPoupanca contaDestinoPix = new ContaPoupanca(0, "PIX-DST-" + sufixo, "Bruno Lima", new BigDecimal("300.00"), new BigDecimal("0.005"));
+        ContaCorrente contaOrigemPix = new ContaCorrente(0, "DEMO-1", "Ana Souza", new BigDecimal("1000.00"), new BigDecimal("200.00"));
+        ContaPoupanca contaDestinoPix = new ContaPoupanca(0, "DEMO-2", "Bruno Lima", new BigDecimal("300.00"), new BigDecimal("0.005"));
 
         long idOrigemPix = repositorioConta.salvar(contaOrigemPix);
         long idDestinoPix = repositorioConta.salvar(contaDestinoPix);
@@ -57,8 +72,8 @@ public class Main {
         System.out.println();
         System.out.println("=== Cenário 2: Transferência via TED + notificação por e-mail ===");
 
-        ContaCorrente contaOrigemTed = new ContaCorrente(0, "TED-ORI-" + sufixo, "Carla Mendes", new BigDecimal("5000.00"), BigDecimal.ZERO);
-        ContaCorrente contaDestinoTed = new ContaCorrente(0, "TED-DST-" + sufixo, "Diego Alves", new BigDecimal("800.00"), BigDecimal.ZERO);
+        ContaCorrente contaOrigemTed = new ContaCorrente(0, "DEMO-3", "Carla Mendes", new BigDecimal("5000.00"), BigDecimal.ZERO);
+        ContaCorrente contaDestinoTed = new ContaCorrente(0, "DEMO-4", "Diego Alves", new BigDecimal("800.00"), BigDecimal.ZERO);
 
         long idOrigemTed = repositorioConta.salvar(contaOrigemTed);
         long idDestinoTed = repositorioConta.salvar(contaDestinoTed);
