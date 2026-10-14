@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/** Cria as tabelas na inicialização executando o database.sql. */
 public class Migrador {
 
     private static final String ARQUIVO_SCHEMA = "/database.sql";
@@ -19,6 +20,7 @@ public class Migrador {
 
     public void aplicar() {
         try (Statement comando = conexao.createStatement()) {
+            // Remove as linhas de comentário e executa cada comando separado por ";".
             String script = this.lerArquivoSchema().replaceAll("(?m)^--.*$", "");
 
             for (String instrucao : script.split(";")) {

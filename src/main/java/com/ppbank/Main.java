@@ -17,6 +17,7 @@ import com.ppbank.service.TransferenciaTed;
 
 import java.math.BigDecimal;
 
+/** Ponto de entrada: cria as tabelas, roda as 2 transferências de exemplo e abre a CLI. */
 public class Main {
 
     public static void main(String[] args) {
