@@ -18,7 +18,7 @@ public class CodificadorSenhaSha256 implements CodificadorSenha {
 
     @Override
     public boolean verificar(String senha, HashSenha hash) {
-        return this.gerarHash(senha, hash.getSalt()).equals(hash.getHash());
+        return this.gerarHash(senha, hash.salt()).equals(hash.hash());
     }
 
     private String gerarSalt() {

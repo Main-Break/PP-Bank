@@ -21,8 +21,8 @@ public class ColaboradorRepositorioSqlite implements RepositorioColaborador {
         try (PreparedStatement comando = Database.getInstancia().getConexao().prepareStatement(sql)) {
             comando.setString(1, colaborador.getNome());
             comando.setString(2, colaborador.getUsuario());
-            comando.setString(3, credencial.getHash());
-            comando.setString(4, credencial.getSalt());
+            comando.setString(3, credencial.hash());
+            comando.setString(4, credencial.salt());
             comando.setString(5, colaborador.getCpf());
             comando.setString(6, colaborador.getAgencia());
             comando.executeUpdate();
