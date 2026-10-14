@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Tela de contas-correntes: criar, listar, desativar e pesquisar. */
 public class MenuContaCorrente extends Menu {
 
     private static final String TIPO = "CORRENTE";

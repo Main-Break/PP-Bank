@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Tela do banco e das filiais. Também dá acesso aos colaboradores. */
 public class MenuBanco extends Menu {
 
     private final BancoRepositorioSqlite repositorioBanco = new BancoRepositorioSqlite();

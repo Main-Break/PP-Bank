@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Tela de poupanças: criar, listar, desativar e pesquisar. */
 public class MenuPoupanca extends Menu {
 
     private static final String TIPO = "POUPANCA";

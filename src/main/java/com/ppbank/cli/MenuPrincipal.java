@@ -2,6 +2,7 @@ package com.ppbank.cli;
 
 import java.util.Scanner;
 
+/** Tela inicial: leva para as demais telas. */
 public class MenuPrincipal extends Menu {
 
     @Override

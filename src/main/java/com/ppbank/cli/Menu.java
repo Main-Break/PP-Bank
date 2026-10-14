@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
+/** Base de todas as telas. Cada tela implementa exibir() e processarOpcao(); o resto são utilitários de leitura e exibição. */
 public abstract class Menu {
 
     public abstract void exibir();
@@ -27,6 +28,7 @@ public abstract class Menu {
         leitor.nextLine();
     }
 
+    /** Lê um número decimal (aceita vírgula). Repete a pergunta até ser válido. */
     protected BigDecimal lerDecimal(Scanner leitor, String pergunta) {
         while (true) {
             System.out.print(pergunta);
@@ -38,6 +40,7 @@ public abstract class Menu {
         }
     }
 
+    /** Lê um número inteiro. Repete a pergunta até ser válido. */
     protected long lerNumero(Scanner leitor, String pergunta) {
         while (true) {
             System.out.print(pergunta);

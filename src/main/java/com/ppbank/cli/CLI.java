@@ -2,6 +2,7 @@ package com.ppbank.cli;
 
 import java.util.Scanner;
 
+/** Laço da CLI: mostra o menu atual, lê a opção e segue para o menu devolvido (null = sair). */
 public class CLI {
 
     private final Scanner leitor = new Scanner(System.in);

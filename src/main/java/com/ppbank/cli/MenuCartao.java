@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Tela de cartões: criar e listar por tipo (crédito, débito e virtual). */
 public class MenuCartao extends Menu {
 
     private final CartaoRepositorioSqlite repositorioCartoes = new CartaoRepositorioSqlite();

@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Tela de colaboradores: cadastro, teste de login e listagem. */
 public class MenuColaborador extends Menu {
 
     private final ColaboradorRepositorioSqlite repositorioColaboradores = new ColaboradorRepositorioSqlite();
+    // Injeção manual: a tela entrega as classes concretas ao serviço pelo construtor.
     private final ServicoColaborador servicoColaborador =
             new ServicoColaborador(this.repositorioColaboradores, new CodificadorSenha());
 
