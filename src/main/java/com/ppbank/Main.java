@@ -3,6 +3,8 @@ package com.ppbank;
 import com.ppbank.cli.CLI;
 import com.ppbank.database.Database;
 import com.ppbank.database.Migrador;
+import com.ppbank.database.Transacao;
+import com.ppbank.database.TransacaoSqlite;
 import com.ppbank.model.ContaCorrente;
 import com.ppbank.model.ContaPoupanca;
 import com.ppbank.repository.ContaRepositorioSqlite;
@@ -16,8 +18,6 @@ import com.ppbank.service.TransferenciaPix;
 import com.ppbank.service.TransferenciaTed;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /** Ponto de entrada: cria as tabelas, roda as 2 transferências de exemplo e abre a CLI. */
 public class Main {
@@ -35,16 +35,11 @@ public class Main {
      * o fluxo aparece no console, mas nenhuma conta de teste fica salva no banco.
      */
     private static void executarCenariosDeTransferencia() {
-        Connection conexao = Database.getInstancia().getConexao();
+        Transacao demonstracao = new TransacaoSqlite();
 
-        try {
-            conexao.setAutoCommit(false);
-            rodarCenarios();
-            conexao.rollback();
-            conexao.setAutoCommit(true);
-        } catch (SQLException e) {
-            throw new RuntimeException("Não foi possível desfazer a demonstração.", e);
-        }
+        demonstracao.iniciar();
+        rodarCenarios();
+        demonstracao.desfazer();
     }
 
     /**
@@ -65,7 +60,7 @@ public class Main {
         long idDestinoPix = repositorioConta.salvar(contaDestinoPix);
 
         ServicoTransferencia servicoPix = new ServicoTransferencia(
-                repositorioConta, repositorioTransferencia, new TransferenciaPix(), new NotificacaoWhatsapp());
+                repositorioConta, repositorioTransferencia, new TransferenciaPix(), new NotificacaoWhatsapp(), new TransacaoSqlite());
 
         servicoPix.transferir(idOrigemPix, idDestinoPix, new BigDecimal("150.00"), "+55 99 99999-9999");
 
@@ -79,7 +74,7 @@ public class Main {
         long idDestinoTed = repositorioConta.salvar(contaDestinoTed);
 
         ServicoTransferencia servicoTed = new ServicoTransferencia(
-                repositorioConta, repositorioTransferencia, new TransferenciaTed(), new NotificacaoEmail());
+                repositorioConta, repositorioTransferencia, new TransferenciaTed(), new NotificacaoEmail(), new TransacaoSqlite());
 
         servicoTed.transferir(idOrigemTed, idDestinoTed, new BigDecimal("500.00"), "cliente@ppbank.com");
 

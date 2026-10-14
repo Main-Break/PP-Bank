@@ -1,5 +1,6 @@
 package com.ppbank.cli;
 
+import com.ppbank.database.TransacaoSqlite;
 import com.ppbank.exception.ContaNaoEncontradaException;
 import com.ppbank.exception.SaldoInsuficienteException;
 import com.ppbank.model.Conta;
@@ -81,7 +82,7 @@ public class MenuMovimentacao extends Menu {
 
         // Injeção manual: a forma e o canal escolhidos são entregues ao serviço (Strategy).
         ServicoTransferencia servico = new ServicoTransferencia(
-                this.repositorioContas, this.repositorioTransferencias, forma, canal);
+                this.repositorioContas, this.repositorioTransferencias, forma, canal, new TransacaoSqlite());
 
         try {
             servico.transferir(idOrigem, idDestino, valor, contato);
