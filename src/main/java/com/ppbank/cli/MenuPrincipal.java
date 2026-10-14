@@ -16,6 +16,7 @@ public class MenuPrincipal extends Menu {
         System.out.println("[2] - Poupança");
         System.out.println("[3] - Cartão");
         System.out.println("[4] - Banco");
+        System.out.println("[5] - Movimentações");
         System.out.println("+-----------------------------+");
         System.out.println("[0] - Sair");
         System.out.println("+-----------------------------+");
@@ -32,6 +33,8 @@ public class MenuPrincipal extends Menu {
                 return new MenuCartao();
             case 4:
                 return new MenuBanco();
+            case 5:
+                return new MenuMovimentacao();
             case 0:
                 return null;
             default:
